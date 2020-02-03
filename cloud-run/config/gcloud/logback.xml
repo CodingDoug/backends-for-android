@@ -1,0 +1,20 @@
+<!--
+This config gets used in the docker deployment to Cloud Run.
+-->
+<configuration>
+
+    <appender name="CLOUD" class="com.google.cloud.logging.logback.LoggingAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <log>application.log</log>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="CLOUD"/>
+    </root>
+
+    <logger name="org.eclipse.jetty" level="INFO"/>
+    <logger name="io.netty" level="INFO"/>
+
+</configuration>

@@ -1,0 +1,6 @@
+# This file tells gcloud which files NOT to upload to Cloud Run for the docker build
+#!include:.gitignore
+.gitignore
+.gcloudignore
+/gradle/
+/gradlew

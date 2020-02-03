@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SumTextAppearance" parent="TextAppearance.AppCompat.Display1">
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <!-- Sum loading -->
+
+    <string name="sumLoading">Loading&#8230;</string>
+    <color name="sumLoading">#00f</color>
+
+    <style name="SumLoadingTextAppearance" parent="SumTextAppearance">
+        <item name="android:textColor">@color/sumLoading</item>
+    </style>
+
+    <!-- Sum loaded -->
+
+    <color name="sumLoaded">#0f0</color>
+
+    <style name="SumLoadedTextAppearance" parent="SumTextAppearance">
+        <item name="android:textColor">@color/sumLoaded</item>
+    </style>
+
+    <string name="sumError">ERROR</string>
+
+    <!-- Sum error -->
+
+    <color name="sumError">#f00</color>
+
+    <style name="SumErrorTextAppearance" parent="SumTextAppearance">
+        <item name="android:textColor">@color/sumError</item>
+    </style>
+
+
+</resources>
