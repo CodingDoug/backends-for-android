@@ -20,7 +20,6 @@ class CloudRunEndpointRepository(private val cloudRunRoot: String) {
 
     companion object {
         private val loading = Loading<AnObject>()
-        private val json = Json(JsonConfiguration.Stable)
         private val client = HttpClient()
     }
 
@@ -31,14 +30,14 @@ class CloudRunEndpointRepository(private val cloudRunRoot: String) {
             try {
                 // Create the object to send and use KotlinX to serialize it
                 val outputObject = AnObject(v, "some name")
-                val bodyText = json.stringify(AnObject.serializer(), outputObject)
+                val bodyText = Json.encodeToString(AnObject.serializer(), outputObject)
 
                 // Receive the response and parse it
                 val responseText = client.post<String> {
                     url("${cloudRunRoot}/nextVersion")
                     body = TextContent(bodyText, ContentType.Application.Json)
                 }
-                val inputObject = json.parse(AnObject.serializer(), responseText)
+                val inputObject = Json.decodeFromString(AnObject.serializer(), responseText)
 
                 emit(Success(inputObject))
             }

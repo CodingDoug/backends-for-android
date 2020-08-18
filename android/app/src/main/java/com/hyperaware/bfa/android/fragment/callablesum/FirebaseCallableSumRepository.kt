@@ -39,16 +39,16 @@ class FirebaseCallableSumRepository : SumRepository {
                     }
                     else {
                         val type = sum?.javaClass?.toString() ?: "null"
-                        emit(Failure(Exception("Sum was not an integer (was instead $type)")))
+                        emit(Failure<Int>(Exception("Sum was not an integer (was instead $type)")))
                     }
                 }
                 else {
                     val type = data?.javaClass?.toString() ?: "null"
-                    emit(Failure(Exception("Response object was not a Map (was instead $type)")))
+                    emit(Failure<Int>(Exception("Response object was not a Map (was instead $type)")))
                 }
             }
             catch (e: Exception) {
-                emit(Failure(e))
+                emit(Failure<Int>(e))
             }
         }
     }

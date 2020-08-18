@@ -8,7 +8,6 @@ import com.hyperaware.bfa.android.R
 
 @BindingAdapter("computedSum")
 fun updateSumTextView(tv: TextView, sumState: SumViewModel.SumState?) {
-    Log.d("@@@@", "THING $sumState")
     val context = tv.context
 
     // This happens on initial load before a LiveData emits a value

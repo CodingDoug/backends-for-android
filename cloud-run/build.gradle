@@ -1,8 +1,8 @@
 buildscript {
     ext {
-        kotlin_version = '1.3.72'
-        kotlinx_serialization_version = '0.20.0'
-        ktor_version = '1.3.0'
+        kotlin_version = '1.4.0'
+        kotlinx_serialization_version = '1.0.0-RC'
+        ktor_version = '1.3.2'
     }
 
     repositories {
@@ -12,12 +12,14 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+        classpath 'com.github.jengelman.gradle.plugins:shadow:6.0.0'
     }
 }
 
 apply plugin: 'kotlin'
 apply plugin: 'application'
 apply plugin: 'kotlinx-serialization'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 sourceCompatibility = 1.8
 compileKotlin {
@@ -35,15 +37,16 @@ repositories {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$kotlinx_serialization_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinx_serialization_version"
 
     implementation "io.ktor:ktor-server-netty:$ktor_version"
     implementation "io.ktor:ktor-gson:$ktor_version"
 
     implementation 'ch.qos.logback:logback-classic:1.2.3'
-    implementation 'com.google.cloud:google-cloud-logging-logback:0.116.0-alpha'
+    implementation 'com.google.cloud:google-cloud-logging-logback:0.118.2-alpha'
 
-    implementation 'com.google.firebase:firebase-admin:6.12.2'
+    implementation 'com.google.firebase:firebase-admin:6.16.0'
 }
 
 application {
@@ -55,7 +58,9 @@ jar {
     manifest {
         attributes 'Main-Class': application.mainClassName
     }
-    from {
-        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
+}
+
+shadowJar {
+    // This is required to prevent problems with gRPC service metadata
+    mergeServiceFiles()
 }
