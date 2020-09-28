@@ -121,9 +121,6 @@ Service [helloworld] revision [helloworld-00008-sih] has been deployed and is
 serving 100 percent of traffic at https://helloworld-jtdztnhypa-uc.a.run.app
 ```
 
-This root URL needs to be copied to the `CLOUD_RUN_ROOT` constant in the
-[CloudRunRepository.kt][8] source file.
-
 [1]: https://firebase.google.com/docs/android/setup
 [2]: android/app/src/main/java/com/hyperaware/bfa/android/fragment/callablesum
 [3]: cloud-functions/functions/src/index.ts
@@ -131,7 +128,6 @@ This root URL needs to be copied to the `CLOUD_RUN_ROOT` constant in the
 [5]: android/app/src/main/java/com/hyperaware/bfa/android/fragment/cloudrunendpoint
 [6]: cloud-run/src/main/kotlin/com/hyperaware/bfa/cloudrun
 [7]: https://cloud.google.com/sdk/docs
-[8]: android/app/src/main/java/com/hyperaware/bfa/android/fragment/cloudrunendpoint/CloudRunEndpointRepository.kt
 [9]: https://cloud.google.com/run/docs/quickstarts/build-and-deploy
 [10]: https://cloud.google.com/run/docs/
 [11]: https://firebase.google.com/docs/functions/callable

@@ -93,7 +93,7 @@ private fun initFirebaseServiceAccount(): FirebaseApp {
     }
     else {
         return resource.openStream().use { inputStream ->
-            val options = FirebaseOptions.Builder()
+            val options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(inputStream))
                     .build()
             FirebaseApp.initializeApp(options)
