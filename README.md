@@ -9,7 +9,8 @@ backend is hosted on Firebase / Google Cloud.
 The top-level components in this repo are:
 
 - An Android app under [android](android)
-- A [Cloud Functions][13] backend under [cloud-functions](cloud-functions)
+- A [Cloud Functions][13] backend (nodejs/TypeScript) under [cloud-functions-ts](cloud-functions-ts)
+- A [Cloud Functions][13] backend (JVM/Kotlin) under [cloud-functions-kt](cloud-functions-kt)
 - A [Cloud Run][14] backend under [cloud-run](cloud-run)
 
 The information and instructions here require that you're familiar with these
@@ -32,7 +33,7 @@ This repo contains sample code that shows how an Android app can invoke a
 [Firebase callable function][11] using the provided SDKs.
 
 - Cloud Functions / TypeScript code in [index.ts][3] under
-  [cloud-functions](cloud-functions).
+  [cloud-functions-ts](cloud-functions-ts).
 - Android / Kotlin code contained in a [package for a fragment][2].
 
 Note that it's possible to deploy and run this code on the Firebase free Spark
@@ -47,7 +48,7 @@ To run this sample:
 Deployment with the Firebase CLI goes like this:
 
 ```sh
-cd cloud-functions
+cd cloud-functions-ts
 firebase deploy
 ```
 
@@ -121,13 +122,68 @@ Service [helloworld] revision [helloworld-00008-sih] has been deployed and is
 serving 100 percent of traffic at https://helloworld-jtdztnhypa-uc.a.run.app
 ```
 
+## Cloud Functions: HTTP function (Kotlin)
+
+This repo contains sample code that shows how to write an HTTP Cloud Function
+using Kotlin and deploy it with gcloud.
+
+- Cloud Functions / Kotlin code in [package under cloud-functions-kt][8].
+- Android / Kotlin code is the same as in the Cloud Run example above. It just
+  needs to be configured to hit the Cloud Functions endpoint rather than Cloud
+  Run.
+
+Your Firebase project must be on a payment plan in order to deploy and run this
+sample. For basic experimentation, you are highly unlikely to incur any actual
+costs, as there is a perpetual free allowance for all of the Firebase and Google
+Cloud products in use here. If you a concerned about future charges, then you
+can simply delete the project or disable billing after you're done experimenting
+with it.
+
+Summary of steps to run the sample:
+
+1. Create a Firebase / Google Cloud project, or reuse the one from the prior
+   sample.
+1. Build and deploy the Cloud Functions code using gcloud (using the commands in
+   the provided deploy.sh script)
+1. Note the base URL of the deployment in the output. It will have a domain of
+   "cloudfunctions.net".
+1. Edit [android/app/src/main/res/values/strings.xml][17] and copy the base URL
+   into the `cloud_run_root` string resource (without the /nextVersion path).
+1. Run the Android app and press the "invoke cloud run endpoint" button.
+
+You should have the [Google Cloud SDK][7] (particularly, the gcloud CLI)
+installed and configured to deploy the backend code to Cloud Run.
+
+```sh
+cd cloud-functions-kt
+./deploy.sh $PROJECT_NAME $FUNCTION_NAME $ENTRY_POINT
+```
+
+`$PROJECT_NAME` is the name of your project, `$FUNCTION_NAME` is the name of the
+function to deploy (e.g. nextVerion), and `$ENTRY_POINT` is the full name of the
+class the handles execution (com.hyperaware.bfa.cloudfunctions.NextVersion).
+Examine the [deploy.sh][18] shell script to see the gcloud commands that it runs
+to deploy the function.
+
+If you are running an OS that can't run unix shell scripts, you will have to
+reverse-engineer the gcloud commands in build.sh for build and deployment.
+
+When the deployment finishes, you will recevie a base URL for your HTTP
+endpoints. For example, there should be output that looks like this:
+
+```txt
+httpsTrigger:
+  url: https://us-central1-$PROJECT_NAME.cloudfunctions.net/$FUNCTION_NAME
+```
+
 [1]: https://firebase.google.com/docs/android/setup
 [2]: android/app/src/main/java/com/hyperaware/bfa/android/fragment/callablesum
-[3]: cloud-functions/functions/src/index.ts
+[3]: cloud-functions-ts/functions/src/index.ts
 [4]: https://firebase.google.com/docs/cli
 [5]: android/app/src/main/java/com/hyperaware/bfa/android/fragment/cloudrunendpoint
 [6]: cloud-run/src/main/kotlin/com/hyperaware/bfa/cloudrun
 [7]: https://cloud.google.com/sdk/docs
+[8]: cloud-functions-kt/src/main/kotlin/com/hyperaware/bfa/cloudfunctions
 [9]: https://cloud.google.com/run/docs/quickstarts/build-and-deploy
 [10]: https://cloud.google.com/run/docs/
 [11]: https://firebase.google.com/docs/functions/callable
@@ -137,3 +193,4 @@ serving 100 percent of traffic at https://helloworld-jtdztnhypa-uc.a.run.app
 [15]: https://medium.com/google-developers/whats-the-relationship-between-firebase-and-google-cloud-57e268a7ff6f
 [16]: cloud-run/deploy.sh
 [17]: android/app/src/main/res/values/strings.xml
+[18]: cloud-functions-kt/deploy.sh

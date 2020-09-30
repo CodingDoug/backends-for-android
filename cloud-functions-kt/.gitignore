@@ -1,0 +1,4 @@
+dougstevenson@tbd 21:11 $ cat .gitignore
+/.gradle
+/build
+/.idea
