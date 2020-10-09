@@ -14,7 +14,6 @@ import io.ktor.content.TextContent
 import io.ktor.http.ContentType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
 
 class CloudRunEndpointRepository(private val cloudRunRoot: String) {
 

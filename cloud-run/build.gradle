@@ -1,7 +1,7 @@
 buildscript {
     ext {
         kotlin_version = '1.4.10'
-        kotlinx_serialization_version = '1.0.0-RC2'
+        kotlinx_serialization_version = '1.0.0'
         ktor_version = '1.4.1'
     }
 
@@ -45,7 +45,7 @@ dependencies {
     implementation 'ch.qos.logback:logback-classic:1.2.3'
     implementation 'com.google.cloud:google-cloud-logging-logback:0.118.2-alpha'
 
-    implementation 'com.google.firebase:firebase-admin:7.0.0'
+    implementation 'com.google.firebase:firebase-admin:7.0.1'
 }
 
 application {
