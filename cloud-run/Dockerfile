@@ -1,6 +1,6 @@
 # Use the official gradle image to create a build artifact.
 # https://hub.docker.com/_/gradle
-FROM gradle:6.6-jdk8 as builder
+FROM gradle:6.8-jdk8 as builder
 
 # Copy local code to the container image.
 COPY build.gradle .
