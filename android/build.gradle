@@ -1,19 +1,20 @@
 buildscript {
     ext {
-        kotlin_version = '1.4.30'
+        kotlin_version = '1.4.31'
         kotlinx_coroutines_version = '1.4.2'
-        kotlinx_serialization_version = '1.0.1'
+        kotlinx_serialization_version = '1.1.0'
 
         androidx_appcompat_version = '1.2.0'
         androidx_lifecycle_viewmodel_version = '2.3.0'
 
         firebase_bom_version = '26.5.0'
 
-        ktor_version = '1.4.1'
+        ktor_version = '1.5.2'
     }
 
     repositories {
         google()
+        mavenCentral()
         jcenter()
     }
     dependencies {
@@ -27,7 +28,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
