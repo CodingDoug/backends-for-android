@@ -118,8 +118,8 @@ When the deployment finishes, you will recevie a base URL for your HTTP
 endpoints. For example, the last line of output should look like this:
 
 ```txt
-Service [helloworld] revision [helloworld-00008-sih] has been deployed and is
-serving 100 percent of traffic at https://helloworld-jtdztnhypa-uc.a.run.app
+Service [helloworld] revision [helloworld-00008-sih] has been deployed and is serving 100 percent of traffic.
+Service URL: https://helloworld-jtdztnhypa-uc.a.run.app
 ```
 
 ## Cloud Functions: HTTP function (Kotlin)
